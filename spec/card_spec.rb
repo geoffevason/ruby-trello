@@ -338,6 +338,8 @@ module Trello
     end
 
     context "custom field items" do
+      let(:custom_field_id) { "field123abc"}
+      let(:custom_field_option_id) { "option123abc"}
       before do
         allow(client)
           .to receive(:get)
@@ -347,6 +349,13 @@ module Trello
 
       it "has a list of custom field items" do
         expect(card.custom_field_items.count).to be > 0
+      end
+
+      it "selects a custom field option" do
+        expect(client).to receive(:put)
+                            .once.with("/cards/abcdef123456789123456789/customField/#{custom_field_id}/item",
+                                       {idValue: custom_field_option_id})
+        card.select_custom_field_option(custom_field_id, custom_field_option_id)
       end
 
       it "clears the custom field value on a card" do

@@ -444,6 +444,13 @@ module Trello
       client.delete("/cards/#{id}/attachments/#{attachment.id}")
     end
 
+    # Select the given custom field option
+    def select_custom_field_option(custom_field_id, option_id)
+      url = "/cards/#{id}/customField/#{custom_field_id}/item"
+      payload = { idValue: option_id }
+      client.put(url, payload)
+    end
+
     # :nodoc:
     def request_prefix
       "/cards/#{id}"
