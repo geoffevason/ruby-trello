@@ -100,8 +100,10 @@ module Trello
     end
 
     # If type == 'list', create a new option and add to this Custom Field
-    def create_new_option(value)
+    def create_new_option(value, fields = {})
       payload = { value: value }
+      payload[:color] = fields[:color] if fields[:color]
+      payload[:pos] = fields[:pos] if fields[:pos]
       client.post("/customFields/#{id}/options", payload)
     end
 
